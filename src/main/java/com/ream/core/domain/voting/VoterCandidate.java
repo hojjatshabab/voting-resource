@@ -17,6 +17,7 @@ import java.util.UUID;
 @Table(name = "voter_candidate", schema = "voting_info")
 public class VoterCandidate extends AbstractAuditingEntity<UUID> {
 
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "candidate", referencedColumnName = "id")
     @JsonIgnore
