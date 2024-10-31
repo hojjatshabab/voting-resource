@@ -8,46 +8,30 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Comment;
 
-import java.util.Collection;
 import java.util.UUID;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "ba_city", schema = "base_info", uniqueConstraints = {
+@Table(name = "city", schema = "base_info", uniqueConstraints = {
         @UniqueConstraint(columnNames = {"code"})
-}
-)
+})
 public class City extends AbstractAuditingEntity<UUID> {
 
     @Column(name = "name", nullable = false)
-
-    @Comment("jwt")
+    @Comment("نام")
     private String name;
 
     @Column(name = "code", nullable = false)
-
-    @Comment("jwt")
+    @Comment("کد")
     private String code;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "common_base_data_province", referencedColumnName = "id", nullable = false)
     @JsonIgnore
-    @Comment("jwt")
-    private com.ream.core.domain.baseInfo.Data commonBaseDataProvince;
-
-    @OneToMany(mappedBy = "city")
-    @JsonIgnore
-    private Collection<OrganizationUnit> organizationUnits;
-
-    public Collection<OrganizationUnit> getOrganizationUnits() {
-        return organizationUnits;
-    }
-
-    public void setOrganizationUnits(Collection<OrganizationUnit> organizationUnits) {
-        this.organizationUnits = organizationUnits;
-    }
+    @Comment("استان")
+    private CommonBaseData commonBaseDataProvince;
 
     public String getName() {
         return name;
@@ -65,11 +49,11 @@ public class City extends AbstractAuditingEntity<UUID> {
         this.code = code;
     }
 
-    public com.ream.core.domain.baseInfo.Data getCommonBaseDataProvince() {
+    public CommonBaseData getCommonBaseDataProvince() {
         return commonBaseDataProvince;
     }
 
-    public void setCommonBaseDataProvince(com.ream.core.domain.baseInfo.Data commonBaseDataProvince) {
+    public void setCommonBaseDataProvince(CommonBaseData commonBaseDataProvince) {
         this.commonBaseDataProvince = commonBaseDataProvince;
     }
 }

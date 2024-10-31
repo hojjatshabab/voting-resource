@@ -1,3 +1,4 @@
+/*
 package com.ream.core.service.voting.impl;
 
 import com.ream.core.domain.voting.Member;
@@ -7,7 +8,6 @@ import com.ream.core.service.PageResponse;
 import com.ream.core.service.voting.MemberService;
 import com.ream.core.service.voting.dto.MemberDto;
 import com.ream.core.service.voting.mapper.MemberDtoMapper;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -21,12 +21,12 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
-public class MemberServiceImpl implements MemberService {
+public class VoterCandidateServiceImpl implements MemberService {
     private final MemberRepository memberRepository;
     private final MemberDtoMapper memberDtoMapper;
 
     @Autowired
-    public MemberServiceImpl(MemberRepository memberRepository, MemberDtoMapper memberDtoMapper) {
+    public VoterCandidateServiceImpl(MemberRepository memberRepository, MemberDtoMapper memberDtoMapper) {
         this.memberRepository = memberRepository;
         this.memberDtoMapper = memberDtoMapper;
     }
@@ -81,3 +81,4 @@ public class MemberServiceImpl implements MemberService {
     }
 
 }
+*/

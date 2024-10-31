@@ -13,6 +13,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CityDto {
+
     private UUID id;
     private String name;
     private String code;

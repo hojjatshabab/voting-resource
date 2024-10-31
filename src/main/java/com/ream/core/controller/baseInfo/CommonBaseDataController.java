@@ -1,7 +1,7 @@
 package com.ream.core.controller.baseInfo;
 
 import com.ream.core.controller.BaseController;
-import com.ream.core.domain.baseInfo.Data;
+import com.ream.core.domain.baseInfo.CommonBaseData;
 import com.ream.core.model.ModeType;
 import com.ream.core.repository.baseInfo.CommonBaseDataRepository;
 import com.ream.core.repository.baseInfo.CommonBaseTypeRepository;
@@ -10,8 +10,8 @@ import com.ream.core.service.PageRequest;
 import com.ream.core.service.PageResponse;
 import com.ream.core.service.baseInfo.CommonBaseDataService;
 import com.ream.core.service.baseInfo.CommonBaseTypeService;
-import com.ream.core.service.baseInfo.dto.DataDto;
-import com.ream.core.service.baseInfo.dto.TypeDto;
+import com.ream.core.service.baseInfo.dto.CommonBaseDataDto;
+import com.ream.core.service.baseInfo.dto.CommonBaseTypeDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -38,9 +38,9 @@ public class CommonBaseDataController extends BaseController {
     @Autowired CommonBaseTypeRepository commonBaseTypeRepository;
 
     @PostMapping
-    public ActionResult<DataDto> save(@RequestBody DataDto commonBaseDataDto, Locale locale) {
+    public ActionResult<CommonBaseDataDto> save(@RequestBody CommonBaseDataDto commonBaseDataDto, Locale locale) {
         isExist(commonBaseDataDto, ModeType.CREATE, locale);
-        Optional<List<Data>> resultOptional = commonBaseDataRepository.findByCommonBaseType(commonBaseTypeRepository.findById(commonBaseDataDto.getCommonBaseTypeId()).get());
+        Optional<List<CommonBaseData>> resultOptional = commonBaseDataRepository.findByCommonBaseType(commonBaseTypeRepository.findById(commonBaseDataDto.getCommonBaseTypeId()).get());
         if (resultOptional.isPresent()) {
             if (resultOptional.get().stream().filter(f -> f.getKey().equals(commonBaseDataDto.getKey())).collect(Collectors.toList()).size() > 0)
                 return CONFLICT("key", locale);
@@ -55,7 +55,7 @@ public class CommonBaseDataController extends BaseController {
     }
 
     @PutMapping
-    public ActionResult<DataDto> update(@RequestBody DataDto commonBaseDataDto, Locale locale) {
+    public ActionResult<CommonBaseDataDto> update(@RequestBody CommonBaseDataDto commonBaseDataDto, Locale locale) {
         isExist(commonBaseDataDto, ModeType.EDIT, locale);
         try {
             return RESULT(commonBaseDataService.update(commonBaseDataDto),locale);
@@ -67,16 +67,16 @@ public class CommonBaseDataController extends BaseController {
     }
 
     @GetMapping
-    public ActionResult<PageResponse<DataDto>> findAll(@RequestParam int currentPage,
-                                                       @RequestParam int pageSize,
-                                                       Locale locale) {
+    public ActionResult<PageResponse<CommonBaseDataDto>> findAll(@RequestParam int currentPage,
+                                                                 @RequestParam int pageSize,
+                                                                 Locale locale) {
         if (currentPage <= 0 || pageSize <= 0) {
             return NOT_ACCEPTABLE(" { currentPage == 0 || pageSize == 0 } ", locale);
         }
-        PageRequest<DataDto> request = new PageRequest<>();
+        PageRequest<CommonBaseDataDto> request = new PageRequest<>();
         request.setPageSize(pageSize);
         request.setCurrentPage(currentPage);
-        PageResponse<DataDto> commonBaseDataDtoPageResponse;
+        PageResponse<CommonBaseDataDto> commonBaseDataDtoPageResponse;
         try {
             commonBaseDataDtoPageResponse = commonBaseDataService.findAll(request);
         } catch (Exception exception) {
@@ -91,8 +91,8 @@ public class CommonBaseDataController extends BaseController {
     }
 
     @GetMapping("/id/{id}")
-    public ActionResult<Optional<DataDto>> findById(@PathVariable Long id, Locale locale) {
-        Optional<DataDto> optionalCommonBaseDataDto;
+    public ActionResult<Optional<CommonBaseDataDto>> findById(@PathVariable Long id, Locale locale) {
+        Optional<CommonBaseDataDto> optionalCommonBaseDataDto;
         if (id.equals(null)) {
             return NO_CONTENT("id =" + id, locale);
         }
@@ -110,17 +110,17 @@ public class CommonBaseDataController extends BaseController {
 
     @GetMapping("find-all/class-name/{className}")
     @Operation(summary = "جستجو برا اساس className نوع اطلاعات پایه", description = "return ActionResult<PageResponse<DataDto>>")
-    public ActionResult<PageResponse<DataDto>> findByClassName(@PathVariable String className,
+    public ActionResult<PageResponse<CommonBaseDataDto>> findByClassName(@PathVariable String className,
                                                                          @RequestParam int currentPage,
                                                                          @RequestParam int pageSize,
                                                                          Locale locale) {
         if (currentPage <= 0 || pageSize <= 0) {
             return NOT_ACCEPTABLE(" { currentPage <= 0 || pageSize <= 0 } ", locale);
         }
-        PageRequest<DataDto> request = new PageRequest<>();
+        PageRequest<CommonBaseDataDto> request = new PageRequest<>();
         request.setPageSize(pageSize);
         request.setCurrentPage(currentPage);
-        PageResponse<DataDto> commonBaseDataDtoPageResponse = new PageResponse<>();
+        PageResponse<CommonBaseDataDto> commonBaseDataDtoPageResponse = new PageResponse<>();
         if (className.equals(null) && className.isEmpty()) {
             return NO_CONTENT(" className= " + className, locale);
         }
@@ -142,7 +142,7 @@ public class CommonBaseDataController extends BaseController {
 
     @GetMapping("/class-name/{className}")
     @Operation(summary = "جستجو برا اساس className نوع اطلاعات پایه", description = "return ActionResult<Optional<List<DataDto>>>")
-    public ActionResult<Optional<List<DataDto>>> findAllByClassName(@PathVariable String className, Locale locale) {
+    public ActionResult<Optional<List<CommonBaseDataDto>>> findAllByClassName(@PathVariable String className, Locale locale) {
         if (Objects.isNull(className)) return NO_CONTENT("classNameNotFund", locale);
         if (className.trim().isEmpty()) return NO_CONTENT("classNameNotFund", locale);
         if (className.trim().isBlank()) return NO_CONTENT("classNameNotFund", locale);
@@ -155,7 +155,7 @@ public class CommonBaseDataController extends BaseController {
 
     @GetMapping("/class-name-value/{className}/{value}")
     @Operation(summary = "جستجو برا اساس className نوع اطلاعات پایه و همچنین value خود اطلاعات پایه", description = "return ActionResult<PageResponse<DataDto>>")
-    public ActionResult<PageResponse<DataDto>> findByValueAndType(@PathVariable String value,
+    public ActionResult<PageResponse<CommonBaseDataDto>> findByValueAndType(@PathVariable String value,
                                                                             @PathVariable String className,
                                                                             @RequestParam int currentPage,
                                                                             @RequestParam int pageSize,
@@ -163,10 +163,10 @@ public class CommonBaseDataController extends BaseController {
         if (currentPage <= 0 || pageSize <= 0) {
             return NOT_ACCEPTABLE(" { currentPage <= 0 || pageSize <= 0 } ", locale);
         }
-        PageRequest<DataDto> request = new PageRequest<>();
+        PageRequest<CommonBaseDataDto> request = new PageRequest<>();
         request.setPageSize(pageSize);
         request.setCurrentPage(currentPage);
-        PageResponse<DataDto> commonBaseDataDtoPageResponse = new PageResponse<>();
+        PageResponse<CommonBaseDataDto> commonBaseDataDtoPageResponse = new PageResponse<>();
 
         if (className.equals(null) || className.isEmpty() || className.isBlank()) {
             return NO_CONTENT(" className= " + className, locale);
@@ -208,10 +208,10 @@ public class CommonBaseDataController extends BaseController {
         }
     }
 
-    private void isExist(DataDto commonBaseDataDto, ModeType modeType, Locale locale) {
+    private void isExist(CommonBaseDataDto commonBaseDataDto, ModeType modeType, Locale locale) {
         if (modeType.equals(ModeType.EDIT)) {
             if (Objects.nonNull(commonBaseDataDto.getId())) {
-                Optional<DataDto> optionalCommonBaseDataDto =
+                Optional<CommonBaseDataDto> optionalCommonBaseDataDto =
                         commonBaseDataService.findById(commonBaseDataDto.getId());
                 if (!optionalCommonBaseDataDto.isPresent()) {
                     NOT_FOUND("id", locale);
@@ -224,7 +224,7 @@ public class CommonBaseDataController extends BaseController {
         if (Objects.nonNull(commonBaseTypeId)) {
             if (Objects.nonNull(commonBaseDataDto.getValue())) {
                 if (Objects.nonNull(commonBaseDataDto.getKey())) {
-                    Optional<TypeDto> optionalCommonBaseType =
+                    Optional<CommonBaseTypeDto> optionalCommonBaseType =
                             commonBaseTypeService.findById(commonBaseTypeId);
                     if (!optionalCommonBaseType.isPresent()) {
                         NOT_FOUND("commonBaseType", locale);

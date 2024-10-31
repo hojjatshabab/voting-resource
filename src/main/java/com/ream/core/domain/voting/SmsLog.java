@@ -1,6 +1,5 @@
 package com.ream.core.domain.voting;
 
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.ream.core.domain.AbstractAuditingEntity;
 import jakarta.persistence.*;
@@ -16,40 +15,44 @@ import java.util.UUID;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "ap_sms_log", schema = "voting-info")
+@Table(name = "sms_log", schema = "voting_info")
 public class SmsLog extends AbstractAuditingEntity<UUID> {
-    @Column(name = "msg_id", nullable = true)
-    @Comment("jwt")
-    private String msgId;
-    @Column(name = "status")
-    @Comment("jwt")
-    private Integer status;
-    @Column(name = "user_id", nullable = true)
-    @Comment("jwt")
-    private UUID userBy;
 
-    @Column(name = "sms_status")
-    @Comment("jwt")
-    private String persianStep;
-    @Column(name = "sms_date")
+    @Column(name = "msg_id")
+    @Comment("شناسه پیامک")
+    private String msgId;
+
+    @Column(name = "status")
+    @Comment("وضعیت پیامک")
+    private Integer status;
+
+    @Column(name = "user_id")
+    @Comment("کاربر")
+    private UUID userId;
+
+    @Column(name = "persian_status")
+    @Comment("وضعیت فارسی")
+    private String persianStatus;
+
+    @Column(name = "send_time")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", locale = "IR", timezone = "Asia/Tehran")
-    @Comment("jwt")
+    @Comment("زمان ارسال")
     @Temporal(TemporalType.DATE)
     private Date sendTime;
+
     @Column(name = "deliver_time")
     @Temporal(TemporalType.DATE)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", locale = "IR", timezone = "Asia/Tehran")
-    @Comment("jwt")
+    @Comment("زمان تحویل")
     private Date deliverTime;
 
     @Column(name = "message")
-    @Comment("jwt")
+    @Comment("پیام")
     private String message;
 
-    @Column(name = "mobile_number", nullable = true)
-    @Comment("jwt")
-    private String destination;
-
+    @Column(name = "mobile_number")
+    @Comment("شماره موبایل")
+    private String mobileNumber;
 
     public String getMsgId() {
         return msgId;
@@ -67,20 +70,20 @@ public class SmsLog extends AbstractAuditingEntity<UUID> {
         this.status = status;
     }
 
-    public UUID getUserBy() {
-        return userBy;
+    public UUID getUserId() {
+        return userId;
     }
 
-    public void setUserBy(UUID userBy) {
-        this.userBy = userBy;
+    public void setUserId(UUID userId) {
+        this.userId = userId;
     }
 
-    public String getPersianStep() {
-        return persianStep;
+    public String getPersianStatus() {
+        return persianStatus;
     }
 
-    public void setPersianStep(String persianStep) {
-        this.persianStep = persianStep;
+    public void setPersianStatus(String persianStatus) {
+        this.persianStatus = persianStatus;
     }
 
     public Date getSendTime() {
@@ -107,11 +110,11 @@ public class SmsLog extends AbstractAuditingEntity<UUID> {
         this.message = message;
     }
 
-    public String getDestination() {
-        return destination;
+    public String getMobileNumber() {
+        return mobileNumber;
     }
 
-    public void setDestination(String destination) {
-        this.destination = destination;
+    public void setMobileNumber(String mobileNumber) {
+        this.mobileNumber = mobileNumber;
     }
 }

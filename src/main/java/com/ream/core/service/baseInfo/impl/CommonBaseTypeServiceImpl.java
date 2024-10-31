@@ -1,12 +1,12 @@
 package com.ream.core.service.baseInfo.impl;
 
-import com.ream.core.domain.baseInfo.Type;
+import com.ream.core.domain.baseInfo.CommonBaseType;
 import com.ream.core.repository.baseInfo.CommonBaseDataRepository;
 import com.ream.core.repository.baseInfo.CommonBaseTypeRepository;
 import com.ream.core.service.PageRequest;
 import com.ream.core.service.PageResponse;
 import com.ream.core.service.baseInfo.CommonBaseTypeService;
-import com.ream.core.service.baseInfo.dto.TypeDto;
+import com.ream.core.service.baseInfo.dto.CommonBaseTypeDto;
 import com.ream.core.service.baseInfo.mapper.CommonBaseTypeDtoMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -33,7 +33,7 @@ public class CommonBaseTypeServiceImpl implements CommonBaseTypeService {
     CommonBaseTypeDtoMapper commonBaseTypeDtoMapper;
 
     @Override
-    public TypeDto save(TypeDto commonBaseTypeDto) {
+    public CommonBaseTypeDto save(CommonBaseTypeDto commonBaseTypeDto) {
 //        log.info("Save new common_base_type {} in to database.", commonBaseTypeDto.getTitle());
         return commonBaseTypeDtoMapper.toDto(
                 commonBaseTypeRepository.save(
@@ -42,7 +42,7 @@ public class CommonBaseTypeServiceImpl implements CommonBaseTypeService {
     }
 
     @Override
-    public TypeDto update(TypeDto commonBaseTypeDto) {
+    public CommonBaseTypeDto update(CommonBaseTypeDto commonBaseTypeDto) {
 //        log.info("Update common_base_type {} in to database.", commonBaseTypeDto.getTitle());
         return commonBaseTypeDtoMapper.toDto(
                 commonBaseTypeRepository.save(
@@ -51,9 +51,9 @@ public class CommonBaseTypeServiceImpl implements CommonBaseTypeService {
     }
 
     @Override
-    public Optional<TypeDto> findById(Long id) {
+    public Optional<CommonBaseTypeDto> findById(Long id) {
 //        log.info("Finding common_base_type by id {} .", id);
-        Optional<Type> optionalCommonBaseType = commonBaseTypeRepository.findById(id);
+        Optional<CommonBaseType> optionalCommonBaseType = commonBaseTypeRepository.findById(id);
         if (optionalCommonBaseType.isPresent()) {
             return Optional.ofNullable(
                     commonBaseTypeDtoMapper.toDto(optionalCommonBaseType.get()));
@@ -62,9 +62,9 @@ public class CommonBaseTypeServiceImpl implements CommonBaseTypeService {
     }
 
     @Override
-    public Optional<TypeDto> findByClassName(String className) {
+    public Optional<CommonBaseTypeDto> findByClassName(String className) {
 //        log.info("Finding common_base_type by class name {} .", className);
-        Optional<Type> optionalCommonBaseType = commonBaseTypeRepository.findByClassName(className);
+        Optional<CommonBaseType> optionalCommonBaseType = commonBaseTypeRepository.findByClassName(className);
         if (optionalCommonBaseType.isPresent()) {
             return Optional.ofNullable(
                     commonBaseTypeDtoMapper.toDto(optionalCommonBaseType.get()));
@@ -73,8 +73,8 @@ public class CommonBaseTypeServiceImpl implements CommonBaseTypeService {
     }
 
     @Override
-    public Optional<List<TypeDto>> findByTitleContains(String name) {
-        Optional<List<Type>> commonBaseTypeDto = commonBaseTypeRepository.findByTitleContains(name);
+    public Optional<List<CommonBaseTypeDto>> findByTitleContains(String name) {
+        Optional<List<CommonBaseType>> commonBaseTypeDto = commonBaseTypeRepository.findByTitleContains(name);
         if (commonBaseTypeDto.get().size() > 0)
             return Optional.ofNullable(commonBaseTypeDtoMapper.toDtoList(commonBaseTypeDto.get()));
         return Optional.empty();
@@ -82,9 +82,9 @@ public class CommonBaseTypeServiceImpl implements CommonBaseTypeService {
 
 
     @Override
-    public PageResponse<TypeDto> findByClassNameOrTitle(String className, String title, PageRequest<TypeDto> model) {
+    public PageResponse<CommonBaseTypeDto> findByClassNameOrTitle(String className, String title, PageRequest<CommonBaseTypeDto> model) {
 //        log.info("Finding all className and title  in common_base_type {}.", className, title);
-        List<TypeDto> result;
+        List<CommonBaseTypeDto> result;
         if (className.isBlank() && title.isBlank())
             return findAll(model);
         if (!className.isBlank() && !title.isBlank())
@@ -96,9 +96,9 @@ public class CommonBaseTypeServiceImpl implements CommonBaseTypeService {
     }
 
     @Override
-    public PageResponse<TypeDto> findAll(PageRequest<TypeDto> model) {
+    public PageResponse<CommonBaseTypeDto> findAll(PageRequest<CommonBaseTypeDto> model) {
 //        log.info("Finding all common_base_type.");
-        List<TypeDto> result = commonBaseTypeRepository
+        List<CommonBaseTypeDto> result = commonBaseTypeRepository
                 .findAll(
                         //  Example.of(example, ExampleMatcher.matching().withMatcher("title", ExampleMatcher.GenericPropertyMatchers.contains())),
                         Pageable.ofSize(model.getPageSize())

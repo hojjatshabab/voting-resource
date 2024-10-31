@@ -16,30 +16,33 @@ import java.util.UUID;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "ba_file_storage", schema = "base_info", uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"file_code"})}
-)
-
+@Table(name = "file_storage", schema = "base_info", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"file_code"})
+})
 public class FileStorage extends AbstractAuditingEntity<UUID> {
 
     @Column(name = "files_path", nullable = false)
-    @Comment("jwt")
+    @Comment("مسیر فایل")
     private String filesPath;
-    @Column(name = "file_type", nullable = false)
-    @Comment("jwt")
-    private String fileType;
-    @Column(name = "record_id")
-    @Comment("jwt")
-    private String recordId;
-    @Column(name = "file_code", nullable = false)
 
-    @Comment("jwt")
+    @Column(name = "file_type", nullable = false)
+    @Comment("نوع فایل")
+    private String fileType;
+
+    @Column(name = "record_id")
+    @Comment("شناسه فایل")
+    private String recordId;
+
+    @Column(name = "file_code", nullable = false)
+    @Comment("کد فایل")
     private String fileCode;
+
     @Column(name = "file_name", nullable = false)
-    @Comment("jwt")
+    @Comment("نام فایل")
     private String fileName;
-    @Column(name = "size",nullable = false)
-    @Comment("jwt")
+
+    @Column(name = "size", nullable = false)
+    @Comment("اندازه فایل")
     private Long size;
 
     public String getFilesPath() {

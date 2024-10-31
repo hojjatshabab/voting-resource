@@ -1,6 +1,6 @@
 package com.ream.core.repository.baseInfo.extra.impl;
 
-import com.ream.core.domain.baseInfo.Data;
+import com.ream.core.domain.baseInfo.CommonBaseData;
 import com.ream.core.repository.baseInfo.extra.CommonBaseDataExtraRepository;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
@@ -15,8 +15,8 @@ public class CommonBaseDataExtraRepositoryImpl implements CommonBaseDataExtraRep
     EntityManager entityManager;
 
     @Override
-    public List<Data> search(String pattern) {
-        String query = " select c from Data c where c.description = :pattern ";
+    public List<CommonBaseData> search(String pattern) {
+        String query = " select c from CommonBaseData c where c.description = :pattern ";
 
         return entityManager.createQuery(query).setParameter("pattern",pattern).getResultList();
     }

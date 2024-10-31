@@ -3,21 +3,20 @@ package com.ream.core.service.voting;
 import com.ream.core.service.PageRequest;
 import com.ream.core.service.PageResponse;
 import com.ream.core.service.voting.dto.MemberDto;
+import com.ream.core.service.voting.dto.VotingDto;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-public interface MemberService {
-    MemberDto save(MemberDto memberDto);
+public interface VotingService {
+    VotingDto save(VotingDto votingDto);
 
-    MemberDto update(MemberDto memberDto);
+    VotingDto update(VotingDto votingDto);
 
-    PageResponse<MemberDto> findAll(PageRequest<MemberDto> model);
+    PageResponse<VotingDto> findAll(PageRequest<VotingDto> model);
 
-    List<MemberDto> findAll();
-
-    Optional<MemberDto> findById(UUID id);
+    Optional<VotingDto> findById(UUID id);
 
     Boolean deleteById(UUID id);
 

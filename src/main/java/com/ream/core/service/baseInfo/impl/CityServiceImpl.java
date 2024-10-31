@@ -1,7 +1,7 @@
 package com.ream.core.service.baseInfo.impl;
 
 import com.ream.core.domain.baseInfo.City;
-import com.ream.core.domain.baseInfo.Data;
+import com.ream.core.domain.baseInfo.CommonBaseData;
 import com.ream.core.repository.baseInfo.CityRepository;
 import com.ream.core.repository.baseInfo.CommonBaseDataRepository;
 import com.ream.core.service.PageRequest;
@@ -67,7 +67,7 @@ public class CityServiceImpl implements CityService {
     @Override
     public List<CityDto> findByCommonBaseDataProvince(Long provinceId) {
 //        log.info("Finding common_base_data by province {} .", provinceId.toString());
-        Optional<Data> commonBaseDataOptional = commonBaseDataRepository.findById(provinceId);
+        Optional<CommonBaseData> commonBaseDataOptional = commonBaseDataRepository.findById(provinceId);
         if (commonBaseDataRepository.findById(provinceId).isPresent()) {
             return cityDtoMapper.toDtoList(cityRepository.findByCommonBaseDataProvince(commonBaseDataOptional.get()));
         }

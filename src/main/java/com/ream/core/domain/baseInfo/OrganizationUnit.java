@@ -4,122 +4,115 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ream.core.domain.AbstractAuditingEntity;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import org.hibernate.annotations.Comment;
 
-import java.util.Collection;
 import java.util.Date;
 import java.util.UUID;
 
 @Entity
-@Table(name = "or_organization_unit", schema = "public", uniqueConstraints = {
+@Table(name = "performer", schema = "base_info", uniqueConstraints = {
         @UniqueConstraint(columnNames = {"code_path"}),
         @UniqueConstraint(columnNames = {"code"})
 })
 public class OrganizationUnit extends AbstractAuditingEntity<UUID> {
-    @Column(name = "name" , nullable = false)
-    @Comment("jwt")
+    @Column(name = "name", nullable = false)
+    @Comment("نام")
     private String name;
-    @Column(name = "address"  )
-    @Comment("jwt")
+    @Column(name = "address")
+    @Comment("آدرس")
     private String address;
-    @Column(name = "server_ip" )
-    @Comment("jwt")
+    @Column(name = "server_ip")
+    @Comment("آدرس سرور")
     private String serverAddress;
-    @Column(name = "email"  )
-    @Comment("jwt")
+    @Column(name = "email")
+    @Email
+    @Comment("ایمیل")
     private String email;
-    @Column(name = "complete_name"  )
-    @Comment("jwt")
+    @Column(name = "complete_name")
+    @Comment("نام کامل")
     private String completeName;
-    @Column(name = "tell_number"  )
-    @Comment("jwt")
+    @Column(name = "tell_number")
+    @Comment("شماره تلفن")
     private String tellNumber;
-    @Column(name = "code"  , nullable = false)
-    @Comment("jwt")
+    @Column(name = "code", nullable = false)
+    @Comment("کد")
     private String code;
     @Column(name = "active", nullable = false)
-    @Comment("jwt")
+    @Comment("فعال/ غیر فال")
     private Boolean active;
-    @Column(name = "code_path"  , nullable = false)
-    @Comment("jwt")
+    @Column(name = "code_path", nullable = false)
+    @Comment("کد مسیر")
     private String codePath;
-    @Column(name = "priority"  )
-    @Comment("jwt")
+    @Column(name = "priority")
+    @Comment("اولویت")
     private Integer priority;
-    @Column(name = "start_date", nullable = true)
+    @Column(name = "start_date")
     @Temporal(TemporalType.DATE)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", locale = "IR", timezone = "Asia/Tehran")
-    @Comment("jwt")
+    @Comment("تاریخ شروع")
     private Date startExpireDate;
-    @Column(name = "expire_date", nullable = true)
+    @Column(name = "expire_date")
     @Temporal(TemporalType.DATE)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", locale = "IR", timezone = "Asia/Tehran")
-    @Comment("jwt")
+    @Comment("تاریخ انقضا")
     private Date endExpireDate;
-    @Column(name = "justification_date", nullable = true)
+    @Column(name = "justification_date")
     @Temporal(TemporalType.DATE)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", locale = "IR", timezone = "Asia/Tehran")
-    @Comment("jwt")
+    @Comment("تاریخ نامه")
     private Date dateAuthorizationLetter;
-    @Column(name = "authorization_letter_number"  )
-    @Comment("jwt")
+    @Column(name = "authorization_letter_number")
+    @Comment("شماره نماه")
     private String authorizationLetterNumber;
-    @Comment("jwt")
     @Column(name = "geometric_location_x")
+    @Comment("مختصات طولی")
     private Double geometricLocation_x;
-
     @Column(name = "geometric_location_y")
-    @Comment("jwt")
+    @Comment("مختصات عرضی")
     private Double geometricLocation_y;
     @Column(name = "work_org_capacity")
-    @Comment("jwt")
+    @Comment("ظرفیت کادر")
     private Integer workOrgCapacity;
     @Column(name = "task_org_capacity")
-    @Comment("jwt")
+    @Comment("ظرفیت وظیفه")
     private Integer taskOrgCapacity;
 
     @JoinColumn(name = "parent_id", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnore
-    @Comment("jwt")
+    @Comment("پدر")
     private OrganizationUnit parent;
-    @OneToMany(mappedBy = "parent", fetch = FetchType.LAZY)
-    @JsonIgnore
-    private Collection<OrganizationUnit> childOrganizationUnits;
 
-
-    @JoinColumn(name = "cd_common_base_data_org_fundamental_base_id", referencedColumnName = "id")
+    @JoinColumn(name = "common_base_data_org_fundamental_base_id", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnore
-    @Comment("jwt")
-    private Data commonBaseDataFundamentalBase;
+    @Comment("فاندامنتال")
+    private CommonBaseData commonBaseDataFundamentalBase;
 
-    @JoinColumn(name = "unit_type", referencedColumnName = "id")
+    @JoinColumn(name = "common_base_dataunit_type", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnore
-    @Comment("jwt")
-    private Data commonBaseDataUnitType;
+    @Comment("نوع سازمان")
+    private CommonBaseData commonBaseDataUnitType;
 
-    @JoinColumn(name = "cd_common_base_data_geography_code_id", referencedColumnName = "id")
+    @JoinColumn(name = "common_base_data_geography_code_id", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnore
-    @Comment("jwt")
-    private Data commonBaseDataGeometricLocation;
+    @Comment("مختصات")
+    private CommonBaseData commonBaseDataGeometricLocation;
 
-    @JoinColumn(name = "province", referencedColumnName = "id")
+    @JoinColumn(name = "common_base_data_province", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnore
-    @Comment("jwt")
-    private Data commonBaseDataProvince;
-
-
+    @Comment("استان")
+    private CommonBaseData commonBaseDataProvince;
 
     @JoinColumn(name = "city", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnore
-    @Comment("jwt")
+    @Comment("شهر")
     private City city;
-
 
     public String getName() {
         return name;
@@ -273,43 +266,35 @@ public class OrganizationUnit extends AbstractAuditingEntity<UUID> {
         this.parent = parent;
     }
 
-    public Collection<OrganizationUnit> getChildOrganizationUnits() {
-        return childOrganizationUnits;
-    }
-
-    public void setChildOrganizationUnits(Collection<OrganizationUnit> childOrganizationUnits) {
-        this.childOrganizationUnits = childOrganizationUnits;
-    }
-
-    public Data getCommonBaseDataFundamentalBase() {
+    public CommonBaseData getCommonBaseDataFundamentalBase() {
         return commonBaseDataFundamentalBase;
     }
 
-    public void setCommonBaseDataFundamentalBase(Data commonBaseDataFundamentalBase) {
+    public void setCommonBaseDataFundamentalBase(CommonBaseData commonBaseDataFundamentalBase) {
         this.commonBaseDataFundamentalBase = commonBaseDataFundamentalBase;
     }
 
-    public Data getCommonBaseDataUnitType() {
+    public CommonBaseData getCommonBaseDataUnitType() {
         return commonBaseDataUnitType;
     }
 
-    public void setCommonBaseDataUnitType(Data commonBaseDataUnitType) {
+    public void setCommonBaseDataUnitType(CommonBaseData commonBaseDataUnitType) {
         this.commonBaseDataUnitType = commonBaseDataUnitType;
     }
 
-    public Data getCommonBaseDataGeometricLocation() {
+    public CommonBaseData getCommonBaseDataGeometricLocation() {
         return commonBaseDataGeometricLocation;
     }
 
-    public void setCommonBaseDataGeometricLocation(Data commonBaseDataGeometricLocation) {
+    public void setCommonBaseDataGeometricLocation(CommonBaseData commonBaseDataGeometricLocation) {
         this.commonBaseDataGeometricLocation = commonBaseDataGeometricLocation;
     }
 
-    public Data getCommonBaseDataProvince() {
+    public CommonBaseData getCommonBaseDataProvince() {
         return commonBaseDataProvince;
     }
 
-    public void setCommonBaseDataProvince(Data commonBaseDataProvince) {
+    public void setCommonBaseDataProvince(CommonBaseData commonBaseDataProvince) {
         this.commonBaseDataProvince = commonBaseDataProvince;
     }
 

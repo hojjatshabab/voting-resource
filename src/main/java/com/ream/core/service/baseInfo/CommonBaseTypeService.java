@@ -1,28 +1,27 @@
 package com.ream.core.service.baseInfo;
 
-import com.ream.core.domain.baseInfo.Type;
 import com.ream.core.service.PageRequest;
 import com.ream.core.service.PageResponse;
-import com.ream.core.service.baseInfo.dto.TypeDto;
+import com.ream.core.service.baseInfo.dto.CommonBaseTypeDto;
 
 
 import java.util.List;
 import java.util.Optional;
 
 public interface CommonBaseTypeService {
-    TypeDto save(TypeDto commonBaseTypeDto);
+    CommonBaseTypeDto save(CommonBaseTypeDto commonBaseTypeDto);
 
-    TypeDto update(TypeDto commonBaseTypeDto);
+    CommonBaseTypeDto update(CommonBaseTypeDto commonBaseTypeDto);
 
-    PageResponse<TypeDto> findAll(PageRequest<TypeDto> model);
+    PageResponse<CommonBaseTypeDto> findAll(PageRequest<CommonBaseTypeDto> model);
 
-    PageResponse<TypeDto> findByClassNameOrTitle(String className, String title, PageRequest<TypeDto> model);
+    PageResponse<CommonBaseTypeDto> findByClassNameOrTitle(String className, String title, PageRequest<CommonBaseTypeDto> model);
 
-    Optional<TypeDto> findById(Long id);
+    Optional<CommonBaseTypeDto> findById(Long id);
 
-    Optional<List<TypeDto>> findByTitleContains(String name);
+    Optional<List<CommonBaseTypeDto>> findByTitleContains(String name);
 
-    Optional<TypeDto> findByClassName(String className);
+    Optional<CommonBaseTypeDto> findByClassName(String className);
 
     Boolean deleteById(Long id);
 }

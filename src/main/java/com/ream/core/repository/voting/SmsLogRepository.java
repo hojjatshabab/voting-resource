@@ -11,6 +11,6 @@ import java.util.UUID;
 public interface SmsLogRepository extends JpaRepository<SmsLog, UUID> {
     List<SmsLog> getByStatus(Integer status);
 
-    SmsLog findTop1ByUserByOrderByCreationDateTimeDesc(String userBy);
+    SmsLog findTop1ByUserIdOrderByCreationDateTimeDesc(String userId);
 
 }

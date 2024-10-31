@@ -1,7 +1,7 @@
 package com.ream.core.repository.baseInfo;
 
-import com.ream.core.domain.baseInfo.Data;
-import com.ream.core.domain.baseInfo.Type;
+import com.ream.core.domain.baseInfo.CommonBaseData;
+import com.ream.core.domain.baseInfo.CommonBaseType;
 import com.ream.core.repository.baseInfo.extra.CommonBaseDataExtraRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,16 +14,16 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface CommonBaseDataRepository extends JpaRepository<Data, Long>, CommonBaseDataExtraRepository {
-    Page<Data> findByCommonBaseType(Type commonBaseType, Pageable pageable);
+public interface CommonBaseDataRepository extends JpaRepository<CommonBaseData, Long>, CommonBaseDataExtraRepository {
+    Page<CommonBaseData> findByCommonBaseType(CommonBaseType commonBaseType, Pageable pageable);
 
-    List<Data> findByCommonBaseTypeOrderByOrderNoAsc(Type commonBaseType);
+    List<CommonBaseData> findByCommonBaseTypeOrderByOrderNoAsc(CommonBaseType commonBaseType);
 
-    Optional<List<Data>> findByCommonBaseType(Type commonBaseType);
+    Optional<List<CommonBaseData>> findByCommonBaseType(CommonBaseType commonBaseType);
 
-    Page<Data> findByValueContainsAndCommonBaseType(String value, Type commonBaseType, Pageable pageable);
+    Page<CommonBaseData> findByValueContainsAndCommonBaseType(String value, CommonBaseType commonBaseType, Pageable pageable);
 
-    @Query(" select c from Data c ")
-    List<Data> test();
+    @Query(" select c from CommonBaseData c ")
+    List<CommonBaseData> test();
 
 }

@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class TypeDto {
+public class CommonBaseTypeDto {
     private Long id;
     private String title;
     private String className;

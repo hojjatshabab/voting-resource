@@ -79,7 +79,7 @@ public class SmsLogServiceImpl implements SmsLogService {
 
     @Override
     public Integer findLastCode(String userName) {
-        SmsLog smsLog = smsLogRepository.findTop1ByUserByOrderByCreationDateTimeDesc(userName);
+        SmsLog smsLog = smsLogRepository.findTop1ByUserIdOrderByCreationDateTimeDesc(userName);
 
         Integer code = null;
         if (Objects.nonNull(smsLog)) {

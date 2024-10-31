@@ -23,7 +23,7 @@ A secure and scalable **Voting System** developed in **Java** using **Spring Boo
 - **Java**: Programming language.
 - **Spring Boot 3**: Main framework for backend development.
 - **Spring Security**: Used for authentication and authorization.
-- **MySQL/PostgreSQL**: Database management system for storing user data, votes, and results.
+- **MySQL/PostgreSQL**: Database management system for storing user commonBaseData, votes, and results.
 - **RESTful API**: Exposes the application’s functionalities for frontend and other applications.
 
 ## Getting Started
