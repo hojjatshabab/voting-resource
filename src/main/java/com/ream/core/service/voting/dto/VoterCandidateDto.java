@@ -8,6 +8,27 @@ public class VoterCandidateDto {
     private UUID candidateId;
     private UUID voterId;
 
+
+    private String candidateName;
+    private String voterName;
+
+
+    public String getCandidateName() {
+        return candidateName;
+    }
+
+    public void setCandidateName(String candidateName) {
+        this.candidateName = candidateName;
+    }
+
+    public String getVoterName() {
+        return voterName;
+    }
+
+    public void setVoterName(String voterName) {
+        this.voterName = voterName;
+    }
+
     public UUID getId() {
         return id;
     }

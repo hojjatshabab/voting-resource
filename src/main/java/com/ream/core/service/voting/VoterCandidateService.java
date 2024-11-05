@@ -16,8 +16,6 @@ public interface VoterCandidateService {
 
     PageResponse<VoterCandidateDto> findAll(PageRequest<VoterCandidateDto> model);
 
-    List<VoterCandidateDto> findAll();
-
     Optional<VoterCandidateDto> findById(UUID id);
 
     Boolean deleteById(UUID id);
